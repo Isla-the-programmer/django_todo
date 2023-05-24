@@ -72,9 +72,9 @@ class LoginView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
 
         token, _ = Token.objects.get_or_create(user=user)
-        user = CustomUser.objects.get_by_natural_key(username=username)
+        user = CustomUser.objects.get(username=username)
         serializer = LoginSerializer()
         if user.role == 'creator':
-            return Response({'token': token.key}, status=status.HTTP_200_OK, template_name='tasks_creator.html')
+            return Response({'token': token.key, 'user_id': user.id}, status=status.HTTP_200_OK, template_name='tasks_creator.html')
         else:
             return Response({'token': token.key, 'user_id': user.id}, status=status.HTTP_200_OK, template_name='tasks_completer.html')

@@ -1,0 +1,14 @@
+{% load rest_framework %}
+
+<html><body>
+
+<h1>Register</h1>
+
+<form action="{% url 'api:user' %}" method="POST" novalidate>
+    {% csrf_token %}
+    {% render_form serializer %}
+    <div>{{ error }}</div>
+    <input type="submit" value="Save">
+</form>
+
+</body></html>
